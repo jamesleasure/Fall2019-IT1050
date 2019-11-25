@@ -1,0 +1,37 @@
+using System;
+
+namespace ConsoleApp4
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Number of items on the receipt: ");
+            int numberItems = Convert.ToInt32(Console.ReadLine());
+
+            string[] items = new string[numberItems];
+            double[] amounts = new double[numberItems];
+
+            for (int i = 0; i < numberItems; i++)
+            {
+                Console.Write("Item description: ");
+                items[i] = Console.ReadLine();
+                Console.Write("Item cost: ");
+                amounts[i] = Convert.ToDouble(Console.ReadLine());
+            }
+
+            double subtotal = 0;
+            Console.WriteLine("Item     \tAmount");
+            Console.WriteLine("------------------------");
+            for (int i = 0; i < amounts.Length; i++)
+            {
+                subtotal += amounts[i];
+                Console.WriteLine($"{items[i]}  \t{amounts[i]}");
+            }
+
+            Console.WriteLine("Subtotal    \t" + subtotal);
+            Console.WriteLine("Tax Amount   \t" + (subtotal * .07));
+            Console.WriteLine("Total w/ tax \t" + (subtotal * 1.07));
+        }
+    }
+}
