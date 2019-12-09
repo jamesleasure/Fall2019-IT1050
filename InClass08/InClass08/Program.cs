@@ -6,26 +6,68 @@ namespace InClass08
     {
         static void Main(string[] args)
         {
-            VideoGame videoGame = new VideoGame();
+            PCVideoGame videoGame = new PCVideoGame();
             videoGame.title = "Starcraft";
             videoGame.PlatformType("PC");
-            videoGame.Amount(60d);
-            videoGame.genre = "Real-time strategy";
+            videoGame.Amount(59.99d);
+            videoGame.gameType = "Real-time strategy";
+            videoGame.minimumRAM = "2 GB";
 
             VideoGame vg2 = new VideoGame("Clash Royale", "Real-time strategy", 0.00, "iOS");
+            
 
-            VideoGame vg3 = new VideoGame("Fortnite", "Battle Royale", 9.99, "Xbox One");
+            XBoxVideoGame vg3 = new XBoxVideoGame("Fortnite", "Battle Royale", 9.99);
 
-            videoGame.Display(); ;
+            videoGame.Display();
+            Console.WriteLine();
+
             vg2.Display();
+            Console.WriteLine();
+
             vg3.Display();
+            Console.WriteLine();
+        }
+    }
+
+    class PCVideoGame : VideoGame
+    {
+        public string minimumRAM;
+        public PCVideoGame(string title, string type, double price)
+            : base(title, type, price, "PC")
+        {
+
+        }
+
+        public PCVideoGame() { }
+
+        public override void Display()
+        {
+            base.Display();
+            Console.WriteLine($"Minimum RAM: {this.minimumRAM}");
+        }
+    }
+
+    class XBoxVideoGame : VideoGame
+    {
+        public bool requiresMicrosoftSubscription;
+        public bool requiresHeadset;
+        public bool requiresInternet;
+
+        public XBoxVideoGame(string title, string type, double price)
+            : base(title, type, price, "XBox One")
+        {
+        }
+        public override void Display()
+        {
+            base.Display();
+            Console.WriteLine($"Requires Microsoft Subscription: {this.requiresMicrosoftSubscription}");
         }
     }
 
     class VideoGame
     {
         public string title;
-        public string genre;
+        //public string genre;
         public double price;
         public string platform;
         public string gameType;
@@ -56,13 +98,13 @@ namespace InClass08
             this.platform = type;
         }
 
-        public void Display()
+        public virtual void Display()
         {
             Console.WriteLine(
                 $"Title: {this.title}\n" +
                 $"Game Type: {this.gameType}\n" +
                 $"Cost: ${this.price.ToString("#.##")}\n" +
-                $"Platform: {this.platform}\n\n");
+                $"Platform: {this.platform}");
         }
     }
 }
